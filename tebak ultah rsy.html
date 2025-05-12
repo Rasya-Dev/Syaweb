@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tebak Ulang Tahunku</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        p {
+            color: #7f8c8d;
+            margin-bottom: 2rem;
+        }
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .option {
+            padding: 1rem;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        .footer {
+            margin-top: 1rem;
+            color: #95a5a6;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kamu Temanku Bukan?</h1>
+        <p>Tebak ulang tahunku yang benar!</p>
+        
+        <div class="options" id="optionsContainer">
+            <!-- Options will be inserted here by JavaScript -->
+        </div>
+        
+        <div class="footer">Pilih salah satu tanggal di atas</div>
+    </div>
+
+    <script>
+        // Konfigurasi
+        const correctDate = "9 January 2009";
+        const yourNumber = "6289521644380"; // Ganti dengan nomor Anda
+        
+        // Generate pilihan tanggal
+        const options = [
+            correctDate,
+            generateRandomDate(),
+            generateRandomDate(),
+            generateRandomDate()
+        ];
+        
+        // Acak urutan pilihan
+        shuffleArray(options);
+        
+        // Tampilkan pilihan
+        const optionsContainer = document.getElementById('optionsContainer');
+        
+        options.forEach(date => {
+            const button = document.createElement('button');
+            button.className = 'option';
+            button.textContent = date;
+            
+            button.addEventListener('click', function() {
+                if (date === correctDate) {
+                    window.location.href = `https://wa.me/${yourNumber}?text=kocak%20gw%20tau`;
+                } else {
+                    window.location.href = `https://wa.me/${yourNumber}?text=astaga%20salah`;
+                }
+            });
+            
+            optionsContainer.appendChild(button);
+        });
+        
+        // Fungsi untuk generate tanggal acak
+        function generateRandomDate() {
+            const months = ["January", "February", "March", "April", "May", "June", 
+                          "July", "August", "September", "October", "November", "December"];
+            const day = Math.floor(Math.random() * 28) + 1;
+            const month = months[Math.floor(Math.random() * 12)];
+            const year = Math.floor(Math.random() * 0) + 2009; // Tahun 2009
+            return `${day} ${month} ${year}`;
+        }
+        
+        // Fungsi untuk mengacak array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+    </script>
+</body>
+</html>
